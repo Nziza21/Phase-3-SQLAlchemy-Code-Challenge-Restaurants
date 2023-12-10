@@ -1,4 +1,4 @@
-from models import db, Restaurant, Customer, Review
+from app.models import db, Restaurant, Customer, Review
 
 # Initialize Flask App and SQLAlchemy
 from flask import Flask
