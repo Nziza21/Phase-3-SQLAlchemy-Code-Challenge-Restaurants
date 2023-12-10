@@ -1,5 +1,5 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "http://127.0.0.1:5000"
 verify_ssl = true
 name = "pypi"
 

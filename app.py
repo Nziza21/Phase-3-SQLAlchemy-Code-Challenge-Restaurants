@@ -2,10 +2,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
-# ... (define your models here)
+@app.route('/')
+def index():
+    return 'Hello, Flask-SQLAlchemy!'
 
 if __name__ == '__main__':
     app.run(debug=True)
