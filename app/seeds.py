@@ -1,30 +1,24 @@
-from app.models import db, Restaurant, Customer, Review
-
-# Initialize Flask App and SQLAlchemy
-from flask import Flask
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
-db.init_app(app)
+# app/seeds.py
+from sqlalchemy.orm import Session
+from app.models.base import Base
+from app.models.restaurant import Restaurant
+from app.models.customer import Customer
+from app.models.review import Review
+from app.config import engine
 
 # Create tables
-with app.app_context():
-    db.create_all()
+Base.metadata.create_all(bind=engine)
 
-# Create instances
-restaurant1 = Restaurant(name='Restaurant A', price=3)
-restaurant2 = Restaurant(name='Restaurant B', price=2)
-customer1 = Customer(first_name='John', last_name='Doe')
-customer2 = Customer(first_name='Jane', last_name='Doe')
+# Sample data
+def seed_data(db: Session):
+    restaurant_1 = Restaurant(name="Restaurant A", price=3)
+    restaurant_2 = Restaurant(name="Restaurant B", price=2)
 
-# Add instances to session
-db.session.add_all([restaurant1, restaurant2, customer1, customer2])
-db.session.commit()
+    customer_1 = Customer(first_name="John", last_name="Doe")
+    customer_2 = Customer(first_name="Jane", last_name="Smith")
 
-# Create reviews
-review1 = Review(restaurant=restaurant1, customer=customer1, star_rating=5)
-review2 = Review(restaurant=restaurant2, customer=customer1, star_rating=4)
-review3 = Review(restaurant=restaurant1, customer=customer2, star_rating=3)
+    review_1 = Review(star_rating=4, restaurant=restaurant_1, customer=customer_1)
+    review_2 = Review(star_rating=5, restaurant=restaurant_2, customer=customer_2)
 
-# Add reviews to session
-db.session.add_all([review1, review2, review3])
-db.session.commit()
+    db.add_all([restaurant_1, restaurant_2, customer_1, customer_2, review_1, review_2])
+    db.commit()

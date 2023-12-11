@@ -1,9 +1,10 @@
 [[source]]
-url = "http://127.0.0.1:5000"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
+sqlalchemy = "==1.4.0"
 
 [dev-packages]
 
